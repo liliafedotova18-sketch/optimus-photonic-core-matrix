@@ -27,3 +27,9 @@ M30 ; End of program
 * Mechanical Retention: Holds permanent 8.5 kN axial joint pre-tension bounds with zero cable slack across envelopes (-55°C to +260°C).
 * EMI Attenuation: The dense co-woven copper grid establishes a continuous, low-impedance Faraday shield providing >= 40 dB attenuation targeting the 1111 Hz inverter switching noise.
 * 
+## 5. REAL-TIME GAIT PROPRIOCEPTION MODULE
+The project architecture includes an automated telemetry state estimation engine (`proprioception_gait_engine.py`) configured to continuously track bipedal movement sequences [MATRESHKA-RADIAL-DEP-2026].
+
+* **Vector Isolation:** The engine runs a differential software routine that processes high-frequency spectral wavelength changes from the dual-helix FBG sensor paths, mathematically separating joint flexion angles from shear torque dynamics [MATRESHKA-RADIAL-DEP-2026].
+* **Execution Environment:** Operates within a zero-latency feedback loop operating at 4000 Hz, instantly translating optical picometer shifts into absolute angular measurements (radians/degrees) and mechanical torque properties (Newton-meters) for active humanoid reflex controls [MATRESHKA-RADIAL-DEP-2026].
+* 
