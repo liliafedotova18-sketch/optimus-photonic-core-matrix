@@ -33,3 +33,12 @@ The project architecture includes an automated telemetry state estimation engine
 * **Vector Isolation:** The engine runs a differential software routine that processes high-frequency spectral wavelength changes from the dual-helix FBG sensor paths, mathematically separating joint flexion angles from shear torque dynamics [MATRESHKA-RADIAL-DEP-2026].
 * **Execution Environment:** Operates within a zero-latency feedback loop operating at 4000 Hz, instantly translating optical picometer shifts into absolute angular measurements (radians/degrees) and mechanical torque properties (Newton-meters) for active humanoid reflex controls [MATRESHKA-RADIAL-DEP-2026].
 * 
+### 6. HARDWARE PRODUCTION ROADMAP: OPTIMIZED EXECUTABLE PATH
+To sustain the strict 4000 Hz (0.25 ms) real-time control loop execution constraint detected during baseline analysis, the deployment architecture bypasses standard Python execution limitations through a dual-stage compiler strategy:
+* **Cython/C++ Binding Layer:** The core telemetry decoding loops and matrix transformations are compiled into a highly optimized C++ library utilizing static typing and vectorization (SIMD) algorithms.
+* **Deterministic RTOS / FPGA Offloading:** The disaccoupling routines are designed for zero-jitter execution on an autonomous Real-Time Operating System (RTOS) or directly synthesized into Hardware Description Language (VHDL/Verilog) blocks for real-time FPGA microcontrollers embedded directly at the joint level.
+* ### 7. ADVANCED THERMAL COMPENSATION & CALIBRATION FRAMEWORK
+To address physical environment variations and the inherent thermal sensitivity of Fiber Bragg Grating (FBG) sensors during real-world humanoid locomotion, the system incorporates a dual-phase calibration suite:
+* **Secondary Reference FBG Core:** The Polar-Weave layout embeds a secondary, mechanically isolated optical fiber line running parallel to the active load tendons to serve as a pure temperature reference channel, mathematically subtracting thermal wavelength drifts from mechanical strain measurements.
+* **Dynamic Multi-Axis Calibration Routine:** Empirical scaling constants (e.g., joint angle radius transformations) are continuously verified against a software-defined lookup table (LUT) during empty swing phases, compensating for physical hysteresis and material fatigue over cyclic gait sequences.
+* 
