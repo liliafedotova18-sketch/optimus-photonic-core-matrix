@@ -1,44 +1,81 @@
-# optimus-photonic-core-matrix
-Technical specification and simulation code for humanoid robot actuator shielding and telemetry
-# OPTIMUS PHOTONIC CORE MATRIX (v4.0-POLYIMIDE)
-Technical specification and simulation code for humanoid robot actuator shielding and telemetry.
+# Optimus Photonic Core Matrix
 
-## 1. MATERIAL SPECIFICATIONS
-* Structural Phase (Zylon / PBO): UTS >= 5.8 GPa, Young's Modulus 270 GPa, axial CTE ≈ -4.5 x 10^-6/K.
-* Shielding Phase (Copper Wire): Oxygen-free copper filaments, wire diameter exactly 25.0 microns.
-* Polymer Matrix (Aromatic Polyimide): Fully imidized continuous dielectric, fluid-impermeable insulation barrier.
+**Bio-Inspired Multifunctional Composite Tendon for Humanoid Robotics**
 
-## 2. DUAL-TENSION KINEMATICS
-* Zylon Tension: Braided under a continuous high-load mechanical layout tension of exactly 8.5 N.
-* Copper Tension: Routed through independent electromagnetic hysteresis brakes holding a sensitive low-tension window between 0.4 N and 0.6 N.
+Technical concept and simulation code developed at the intersection of **neurophysiology**, **3D biodynamics** and advanced robotics.
 
-## 3. CNC ACTION REGIME (SINUMERIK ONE)
-IDS=1 WHENEVER ($AA_IW[Z] >= 0.0) DO $TC_TDP1=8.5 $TC_TDP2=0.5
-IDS=2 WHENEVER ($AA_IW[Z] >= 0.0) DO R101=((3.14159265 * $AA_IW[X]) / (144 * TAN(45.0)))
-IDS=3 WHENEVER ($AA_IW[Z] >= 0.0) DO R102=((R103 * 1000.0) / R101 * 60.0)
+---
 
-G21 ; Metric (mm)
-G90 ; Enforce absolute coordinates
-G94 ; Feedrate in mm/min
-G01 Z450.0 X120.0 A450.0 F180.2
-M30 ; End of program
+## Concept Overview
 
-## 4. SYSTEM PERFORMANCE TARGETS
-* Mechanical Retention: Holds permanent 8.5 kN axial joint pre-tension bounds with zero cable slack across envelopes (-55°C to +260°C).
-* EMI Attenuation: The dense co-woven copper grid establishes a continuous, low-impedance Faraday shield providing >= 40 dB attenuation targeting the 1111 Hz inverter switching noise.
-* 
-## 5. REAL-TIME GAIT PROPRIOCEPTION MODULE
-The project architecture includes an automated telemetry state estimation engine (`proprioception_gait_engine.py`) configured to continuously track bipedal movement sequences [MATRESHKA-RADIAL-DEP-2026].
+This project proposes a smart tendon system that integrates three critical functions in one composite structure:
 
-* **Vector Isolation:** The engine runs a differential software routine that processes high-frequency spectral wavelength changes from the dual-helix FBG sensor paths, mathematically separating joint flexion angles from shear torque dynamics [MATRESHKA-RADIAL-DEP-2026].
-* **Execution Environment:** Operates within a zero-latency feedback loop operating at 4000 Hz, instantly translating optical picometer shifts into absolute angular measurements (radians/degrees) and mechanical torque properties (Newton-meters) for active humanoid reflex controls [MATRESHKA-RADIAL-DEP-2026].
-* 
-### 6. HARDWARE PRODUCTION ROADMAP: OPTIMIZED EXECUTABLE PATH
-To sustain the strict 4000 Hz (0.25 ms) real-time control loop execution constraint detected during baseline analysis, the deployment architecture bypasses standard Python execution limitations through a dual-stage compiler strategy:
-* **Cython/C++ Binding Layer:** The core telemetry decoding loops and matrix transformations are compiled into a highly optimized C++ library utilizing static typing and vectorization (SIMD) algorithms.
-* **Deterministic RTOS / FPGA Offloading:** The disaccoupling routines are designed for zero-jitter execution on an autonomous Real-Time Operating System (RTOS) or directly synthesized into Hardware Description Language (VHDL/Verilog) blocks for real-time FPGA microcontrollers embedded directly at the joint level.
-* ### 7. ADVANCED THERMAL COMPENSATION & CALIBRATION FRAMEWORK
-To address physical environment variations and the inherent thermal sensitivity of Fiber Bragg Grating (FBG) sensors during real-world humanoid locomotion, the system incorporates a dual-phase calibration suite:
-* **Secondary Reference FBG Core:** The Polar-Weave layout embeds a secondary, mechanically isolated optical fiber line running parallel to the active load tendons to serve as a pure temperature reference channel, mathematically subtracting thermal wavelength drifts from mechanical strain measurements.
-* **Dynamic Multi-Axis Calibration Routine:** Empirical scaling constants (e.g., joint angle radius transformations) are continuously verified against a software-defined lookup table (LUT) during empty swing phases, compensating for physical hysteresis and material fatigue over cyclic gait sequences.
-* 
+- High-load structural core with stable pre-tension
+- Embedded photonic sensing for real-time proprioception
+- Integrated EMI shielding
+
+Inspired by biological muscle-tendon units (pre-tension regulation, distributed sensing, viscoelastic damping and thermal adaptation).
+
+---
+
+## Key Technical Features
+
+- **Dual-tension kinematics** — different tension levels for structural and shielding elements
+- **Photonic sensing core** — dual-helix FBG-based system for high-frequency strain and temperature measurement
+- **Thermal compensation** — negative CTE mechanism for zero-slack performance across wide temperature range
+- **Hybrid shielding** — combined metallic + conductive composite approach against actuator noise
+- **Advanced matrix** — high-performance polymer composite with thermal and mechanical synergy
+
+Target performance:
+- Stable axial pre-tension under dynamic and thermal loads
+- 4000 Hz class proprioceptive feedback
+- Effective EMI attenuation for inverter-driven actuators
+
+---
+
+## Repository Contents
+
+- `simulations/` — Python models of tendon dynamics, thermal compensation, virtual FBG sensing and simplified 3D joint biodynamics
+- `docs/` — High-level architecture description
+
+---
+
+## Quick Start — Simulations
+
+```bash
+pip install numpy scipy matplotlib
+```
+
+```python
+from simulations.bio_tendon_sim import BioTendonSimulator
+
+sim = BioTendonSimulator()
+t, L, tension, temp = sim.simulate_gait_cycle()
+sim.plot_results(t, L, tension, temp)
+```
+
+Models demonstrate thermal-tension stability, proprioceptive signal simulation and basic 3D leg dynamics.
+
+---
+
+## Status
+
+**Research Concept Stage** (simulations + high-level architecture)
+
+This work is rooted in human neurophysiology and 3D biodynamics research.
+
+**Commercial licensing, detailed technical specifications, manufacturing details and NDA discussions are available upon direct request.**
+
+**Contact:** [@Ekaterina8443](https://x.com/Ekaterina8443)
+
+---
+
+**License:** CC BY-NC-SA 4.0 (Non-commercial use with attribution)
+
+---
+
+**Star ⭐ if you work in bio-inspired robotics, advanced actuators or humanoid development.**
+```
+
+---
+
